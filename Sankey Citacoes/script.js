@@ -216,8 +216,8 @@ var chords = wrapper.selectAll("path.chord")
 g.append("title")	
     // .text(function(d, i) {return Math.round(d.value) + " people in " + Names[i];});
     .text(function(d, i) {
-        if (Names[i].includes(" ")){
-            return Names[i] + 'foi mencionado ' + Math.round(d.value) + ' vezes por outros candidatos'
+        if (Names[i].includes(" ") & ~Names[i].includes("Alvaro")){
+            return Names[i] + 'foi mencionado(a) ' + Math.round(d.value) + ' vezes por outros candidatos'
         }
         else {
             return Names[i] + ' mencionou outros candidatos ' + Math.round(d.value) + ' vezes'
