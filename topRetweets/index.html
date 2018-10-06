@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style type="text/css">
+  
+@import url('https://fonts.googleapis.com/css?family=Asap:400,500,700');
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: 'Asap', sans-serif;
+    background: white;
+    overflow-x:hidden;
+    height:100%;
+}
+iframe.table1 {
+    width: 100%;
+    height: 1300px;
+    border: none;
+}
+iframe.table2 {
+    width: 100%;
+    height: 1115px;
+    border: none;
+}
+iframe.table3 {
+    width: 100%;
+    height: 100vw;
+    border: none;
+    max-width: 100%;
+}
+a {
+    text-decoration: none;
+    opacity: .6;
+    padding: 60px;
+    font-weight: bolder;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    font-size: 1.4em;
+}
+a:hover {
+    opacity: 1;
+}
+#container {
+    width: 160px;
+    height: 36px;
+    margin: auto;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    user-select: none;
+    cursor: pointer;
+}
+.inner-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: inherit;
+    height: inherit;
+    text-transform: uppercase;
+    font-size: .6em;
+    letter-spacing: .2em;
+}
+.inner-container:first-child {
+    background: #e9e9e9;
+    color: #a9a9a9;
+}
+.inner-container:nth-child(2) {
+    background: #303030;
+    color: white;
+    clip-path: inset(0 50% 0 0);
+    transition: .3s cubic-bezier(0,0,0,1);
+}
+.toggle {
+    width: 50%;
+    position: absolute;
+    height: inherit;
+    display: flex;
+    box-sizing: border-box;
+}
+.toggle p {
+    margin: auto;
+}
+.toggle:nth-child(1) {
+    right: 0;
+}
+.frame {
+    width: 100%;
+    position: relative;
+    border: none;
+    margin: auto;
+    align: middle;
+}
+
+.slidecontainer {
+    width: 100%;
+    background: white;
+}
+
+.sticky {
+  position: fixed;
+  top:0;
+  width: 50%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #07508C;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #07508C;
+    cursor: pointer;
+}
+
+.row {
+  display: flex; /* equal height of the children */
+}
+
+.col {
+  flex: 1; /* additionally, equal width */
+  
+  padding: 1em;
+  border: solid;
+}
+</style>
+
+</head>
+<body>
+  <div class='slidecontainer'>
+    <p align='center'><span id='data-switch'></span></p>
+    <input type='range' min="1" max="5" value="1" class='slider' id='slider-switch'>
+  </div>
+
+    <span style="display:block; height: 30px;"></span>
+
+   <div id='frame' class='frame' style="width: 50%; margin: 0 auto;">
+    
+  </div>
+  <div id='tweet-out' style="width: 50%; margin: 0 auto;">
+  	<script async src='https://platform.twitter.com/widgets.js' charset='utf-8'></script>
+  		<div id='tweet'>
+
+	  </div>
+  </div>
+  
+
+
+  <script type="text/javascript">
+    // Coletando valor do slider
+    var slider = document.getElementById("slider-switch");
+    var output = document.getElementById("data-switch");
+    var val = slider.value;
+
+    // Convertendo em data
+    var clusters = ['Comunidade Bolsonaro','Comunidade Ciro','Comunidade Haddad',
+    					'Comunidade de críticos','Comunidade de memes'];
+
+    var links = ['65','67','71','69','63'];
+
+    /*var tweets = ["<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>O PT acusa os adversários de divulgarem notícias falsas, mas a safra de fake news começou com a campanha &quot;Lula Livre” e prosseguiu com &quot;Lula candidato&quot;. O oxigênio do PT é a mentira. Sempre foi</p>&mdash; Augusto Nunes (@augustosnunes) <a href='https://twitter.com/augustosnunes/status/1048003423788879874?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>","<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>Há 4 anos nosso país está parado, paralisado por uma crise política. Essa divisão não vai permitir que o Brasil supere essa crise, não vai permitir mudar esse país. Eu tenho ficha limpa, experiência e ganho de Bolsonaro e do PT com folga no 2o turno.  <a href='https://twitter.com/hashtag/Ciro12?src=hash&amp;ref_src=twsrc%5Etfw'>#Ciro12</a> <a href='https://twitter.com/hashtag/TsunamiCIRO12?src=hash&amp;ref_src=twsrc%5Etfw'>#TsunamiCIRO12</a></p>&mdash; Ciro Gomes (@cirogomes) <a href='https://twitter.com/cirogomes/status/1048057187061391361?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>","<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>Estou no estúdio da Globo onde acontece o debate. Estou na frente do púlpito e posso assegurar: Álvaro Dias não está sóbrio.</p>&mdash; Juliano Medeiros (@julianoPSOL) <a href='https://twitter.com/julianoPSOL/status/1048032970068688896?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>","<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>Bonner: “O senhor foi mais rápido que o ponto”<br>Ciro: “É assim que eu vou governar o Brasil” <a href='https://twitter.com/hashtag/DebateNaGlobo?src=hash&amp;ref_src=twsrc%5Etfw'>#DebateNaGlobo</a> <a href='https://t.co/0WpUNBTDT9'>pic.twitter.com/0WpUNBTDT9</a></p>&mdash; BCharts (@bchartsnet) <a href='https://twitter.com/bchartsnet/status/1048048697915953153?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>","<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>Esse debate tá legal né galera?<br>Pena que o próximo vai ser só daqui a 30 anos...</p>&mdash; Jéferfon Menezes 1⃣2️⃣ (@JefinhoMenes) <a href='https://twitter.com/JefinhoMenes/status/1048031417635151872?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>"]*/
+
+    var show = clusters[val-1];
+    var l = links[val-1];
+
+
+    output.innerHTML = show;
+    var f = document.getElementById("frame");
+    f.innerHTML = "<iframe width='600' height='300' frameborder='0' scrolling='no' align='center'  src='https://plot.ly/~lucas.noveline/"+l+".embed?showlink=false'></iframe>";
+    /*var t = document.getElementById("tweet");
+      t.innerHTML = tweets[val-1];*/
+
+    slider.oninput = function() {
+      var val = this.value;
+      var clusters = ['Comunidade Bolsonaro','Comunidade Ciro','Comunidade Haddad',
+    					'Comunidade de críticos','Comunidade de memes'];
+
+      var links = ['65','67','71','69','63'];
+
+      /*var tweets = ["<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>O PT acusa os adversários de divulgarem notícias falsas, mas a safra de fake news começou com a campanha &quot;Lula Livre” e prosseguiu com &quot;Lula candidato&quot;. O oxigênio do PT é a mentira. Sempre foi</p>&mdash; Augusto Nunes (@augustosnunes) <a href='https://twitter.com/augustosnunes/status/1048003423788879874?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>","<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>Há 4 anos nosso país está parado, paralisado por uma crise política. Essa divisão não vai permitir que o Brasil supere essa crise, não vai permitir mudar esse país. Eu tenho ficha limpa, experiência e ganho de Bolsonaro e do PT com folga no 2o turno.  <a href='https://twitter.com/hashtag/Ciro12?src=hash&amp;ref_src=twsrc%5Etfw'>#Ciro12</a> <a href='https://twitter.com/hashtag/TsunamiCIRO12?src=hash&amp;ref_src=twsrc%5Etfw'>#TsunamiCIRO12</a></p>&mdash; Ciro Gomes (@cirogomes) <a href='https://twitter.com/cirogomes/status/1048057187061391361?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>","<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>Estou no estúdio da Globo onde acontece o debate. Estou na frente do púlpito e posso assegurar: Álvaro Dias não está sóbrio.</p>&mdash; Juliano Medeiros (@julianoPSOL) <a href='https://twitter.com/julianoPSOL/status/1048032970068688896?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>","<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>Bonner: “O senhor foi mais rápido que o ponto”<br>Ciro: “É assim que eu vou governar o Brasil” <a href='https://twitter.com/hashtag/DebateNaGlobo?src=hash&amp;ref_src=twsrc%5Etfw'>#DebateNaGlobo</a> <a href='https://t.co/0WpUNBTDT9'>pic.twitter.com/0WpUNBTDT9</a></p>&mdash; BCharts (@bchartsnet) <a href='https://twitter.com/bchartsnet/status/1048048697915953153?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>","<blockquote class='twitter-tweet tw-align-center' data-lang='pt'><p lang='pt' dir='ltr'>Esse debate tá legal né galera?<br>Pena que o próximo vai ser só daqui a 30 anos...</p>&mdash; Jéferfon Menezes 1⃣2️⃣ (@JefinhoMenes) <a href='https://twitter.com/JefinhoMenes/status/1048031417635151872?ref_src=twsrc%5Etfw'>5 de outubro de 2018</a></blockquote>"]*/
+
+      var show = clusters[val-1];
+      var l = links[val-1];
+
+      output.innerHTML = show;
+      var f = document.getElementById("frame");
+      f.innerHTML = "<iframe width='600' height='300' frameborder='0' scrolling='no' align='center'  src='https://plot.ly/~lucas.noveline/"+l+".embed?showlink=false'></iframe>";
+
+      /*var t = document.getElementById("tweet");
+      t.innerHTML = tweets[val-1];*/
+    };
+  </script>
+</body>
+</html>
+
+
+
